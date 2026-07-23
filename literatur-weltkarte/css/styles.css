@@ -1,0 +1,129 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 :root \{\
+    --bg-dark: #0a0a0a;\
+    --text-light: #e0e0e0;\
+    --accent: #ffffff;\
+    --card-bg: rgba(20, 20, 20, 0.85);\
+    --radius: 16px;\
+    --font-mono: 'Space Mono', monospace;\
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\
+\}\
+\
+* \{ box-sizing: border-box; margin: 0; padding: 0; \}\
+\
+body \{\
+    font-family: var(--font-mono);\
+    background-color: var(--bg-dark);\
+    color: var(--text-light);\
+    overflow: hidden; /* Verhindert Scrollbars durch den Globus */\
+\}\
+\
+/* 3D Globus Hintergrund */\
+#globe-container \{\
+    position: absolute;\
+    top: 0; left: 0; width: 100vw; height: 100vh;\
+    z-index: 0;\
+\}\
+\
+/* UI Layers (Glassmorphismus) */\
+.ui-layer \{\
+    position: absolute;\
+    z-index: 10;\
+    padding: 20px;\
+    display: flex;\
+    justify-content: space-between;\
+    align-items: center;\
+    width: 100%;\
+    pointer-events: none; /* Klicks auf den Globus durchlassen... */\
+\}\
+.ui-layer > * \{\
+    pointer-events: auto; /* ...au\'dfer auf UI-Elemente */\
+\}\
+\
+.top-bar \{ top: 0; \}\
+.bottom-bar \{ \
+    bottom: 40px; \
+    flex-direction: column;\
+    width: 60%;\
+    left: 20%;\
+\}\
+\
+/* Suche & Buttons */\
+input[type="text"], .btn-filter \{\
+    background: var(--card-bg);\
+    border: 1px solid rgba(255,255,255,0.1);\
+    color: var(--text-light);\
+    font-family: var(--font-mono);\
+    padding: 12px 24px;\
+    border-radius: 30px;\
+    backdrop-filter: blur(10px);\
+    outline: none;\
+    transition: var(--transition);\
+\}\
+\
+input[type="text"]:focus, .btn-filter:hover \{\
+    border-color: var(--accent);\
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);\
+\}\
+\
+/* Globe Pins (HTML Elements) */\
+.pin-marker \{\
+    width: 12px; height: 12px;\
+    background: var(--accent);\
+    border-radius: 50%;\
+    cursor: pointer;\
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);\
+    transition: transform 0.3s ease;\
+\}\
+.pin-marker:hover \{ transform: scale(1.5); \}\
+\
+/* Hover Preview Popup */\
+.hover-preview \{\
+    position: absolute;\
+    bottom: 20px; left: 50%;\
+    transform: translateX(-50%);\
+    background: var(--card-bg);\
+    border: 1px solid rgba(255,255,255,0.1);\
+    padding: 15px;\
+    border-radius: var(--radius);\
+    width: 250px;\
+    backdrop-filter: blur(10px);\
+    opacity: 0;\
+    transition: opacity 0.3s ease;\
+    pointer-events: none;\
+\}\
+\
+/* Modal (Zentrales Popup) */\
+#modal-overlay \{\
+    position: fixed;\
+    top: 0; left: 0; width: 100vw; height: 100vh;\
+    background: rgba(0,0,0,0.7);\
+    backdrop-filter: blur(5px);\
+    z-index: 100;\
+    display: flex;\
+    justify-content: center;\
+    align-items: center;\
+    opacity: 1;\
+    transition: var(--transition);\
+\}\
+#modal-overlay.hidden \{\
+    opacity: 0;\
+    pointer-events: none;\
+\}\
+.modal-card \{\
+    background: #111;\
+    width: 90%; max-width: 800px;\
+    max-height: 85vh;\
+    border-radius: var(--radius);\
+    padding: 40px;\
+    overflow-y: auto;\
+    position: relative;\
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);\
+    scroll-behavior: smooth; /* Wichtig f\'fcr das automatische Scrollen zum Werk */\
+\}}
