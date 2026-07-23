@@ -1,189 +1,385 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2870
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+// ==========================================================================
+// KONFIGURATION & DATEN-KATEGORIEN
+// ==========================================================================
 
-\f0\fs24 \cf0 // js/app.js\
-\
-let globalData = []; // Speichert alle Werke flach ab\
-let myGlobe;\
-\
-// 1. Initialisierung\
-async function init() \{\
-    // Daten laden\
-    const response = await fetch('./data/authors.json');\
-    const authors = await response.json();\
-    \
-    // Datenstruktur abflachen: Jedes Werk wird ein eigener Eintrag\
-    authors.forEach(author => \{\
-        author.works.forEach(work => \{\
-            globalData.push(\{\
-                ...work,\
-                authorData: \{ \
-                    name: author.name, \
-                    birth: author.birth, \
-                    intro: author.intro,\
-                    life: author.life\
-                \}\
-            \});\
-        \});\
-    \});\
-\
-    initGlobe();\
-    initTimeline();\
-    initSearchAndFilters();\
-    updateView(globalData); // Initiale Anzeige aller Werke\
-\}\
-\
-// 2. Globus initialisieren (Globe.gl)\
-function initGlobe() \{\
-    myGlobe = Globe()\
-        (document.getElementById('globe-container'))\
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg') // Dunkles Theme\
-        .backgroundColor('rgba(0,0,0,0)') // Transparent, CSS Background \'fcbernimmt\
-        .htmlElementsData([]) // Wir nutzen HTML Elemente f\'fcr die Pins (bessere CSS Kontrolle)\
-        .htmlElement(d => \{\
-            const el = document.createElement('div');\
-            el.className = 'pin-marker';\
-            \
-            // Hover Popup\
-            const popup = document.createElement('div');\
-            popup.className = 'hover-preview';\
-            popup.innerHTML = `\
-                <div style="font-size: 0.8em; opacity: 0.7">$\{d.authorData.name\}</div>\
-                <div style="font-weight: bold; margin: 5px 0;">$\{d.title\}</div>\
-                <div style="font-size: 0.8em; margin-bottom: 8px;">$\{d.year\}</div>\
-                <div style="font-size: 0.85em; white-space: pre-line;">$\{d.intro\}</div>\
-            `;\
-            el.appendChild(popup);\
-\
-            // 1 Sekunde Hover Logik\
-            let hoverTimer;\
-            el.addEventListener('mouseenter', () => \{\
-                hoverTimer = setTimeout(() => \{\
-                    popup.style.opacity = '1';\
-                \}, 1000); // 1 Sekunde warten\
-            \});\
-            el.addEventListener('mouseleave', () => \{\
-                clearTimeout(hoverTimer);\
-                popup.style.opacity = '0';\
-            \});\
-\
-            // Klick auf Pin -> \'d6ffnet Modal\
-            el.addEventListener('click', () => openModal(d));\
-\
-            return el;\
-        \});\
-        \
-    // Initiale Kamera-Position\
-    myGlobe.pointOfView(\{ lat: 20, lng: 0, altitude: 2.5 \});\
-\}\
-\
-// 3. Filter-Logik (Kombiniert Timeline, Suche und Tags)\
-function updateView() \{\
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();\
-    // (Hier w\'fcrdest du auch die aktiven Dropdown-Tags auslesen)\
-    \
-    // Aktuelle Timeline-Werte aus noUiSlider lesen\
-    const timelineValues = document.getElementById('timeline-slider').noUiSlider.get();\
-    const minYear = parseInt(timelineValues[0]);\
-    const maxYear = parseInt(timelineValues[1]);\
-\
-    const filteredWorks = globalData.filter(work => \{\
-        // 1. Timeline Check\
-        if (work.year < minYear || work.year > maxYear) return false;\
-\
-        // 2. Search Check (Autor, Titel, Tags)\
-        if (searchTerm) \{\
-            const authorMatch = work.authorData.name.toLowerCase().includes(searchTerm);\
-            const titleMatch = work.title.toLowerCase().includes(searchTerm);\
-            const tagsString = JSON.stringify(work.tags).toLowerCase();\
-            const tagMatch = tagsString.includes(searchTerm);\
-            \
-            if (!authorMatch && !titleMatch && !tagMatch) return false;\
-        \}\
-\
-        // 3. Dropdown Filter Check (Hier implementierst du die Logik f\'fcr aktiven Checkboxen)\
-        // ...\
-\
-        return true;\
-    \});\
-\
-    // Z\'e4hler aktualisieren\
-    document.getElementById('visible-count').innerText = filteredWorks.length;\
-\
-    // Globus updaten (Smooth transition durch Globe.gl intern)\
-    myGlobe.htmlElementsData(filteredWorks);\
-\}\
-\
-// 4. Modal Logik\
-function openModal(workData) \{\
-    const modal = document.getElementById('modal-overlay');\
-    const content = document.getElementById('modal-content');\
-    \
-    // Baue das HTML zusammen (vereinfacht dargestellt)\
-    // In der Realit\'e4t w\'fcrdest du hier alle Werke des Autors aus globalData filtern\
-    const authorWorks = globalData.filter(w => w.authorData.name === workData.authorData.name);\
-    \
-    let worksHtml = authorWorks.map(w => `\
-        <div id="werk-$\{w.id\}" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #333;">\
-            <h3>$\{w.title\} ($\{w.year\})</h3>\
-            <p style="font-size: 0.9em; opacity: 0.7;">$\{w.location\}</p>\
-            <p>$\{w.description\}</p>\
-        </div>\
-    `).join('');\
-\
-    content.innerHTML = `\
-        <h1 style="margin-bottom: 10px;">$\{workData.authorData.name\}</h1>\
-        <p style="opacity: 0.8; margin-bottom: 30px;">* $\{workData.authorData.birth\}</p>\
-        <h2>Leben und Wirken</h2>\
-        <p>$\{workData.authorData.life\}</p>\
-        \
-        $\{worksHtml\}\
-    `;\
-    \
-    modal.classList.remove('hidden');\
-\
-    // Automatisches Scrollen zum angeklickten Werk (Smooth)\
-    setTimeout(() => \{\
-        const targetWork = document.getElementById(`werk-$\{workData.id\}`);\
-        if (targetWork) \{\
-            targetWork.scrollIntoView(\{ behavior: 'smooth', block: 'start' \});\
-            // Kurzes Highlighting\
-            targetWork.style.backgroundColor = 'rgba(255,255,255,0.05)';\
-            setTimeout(() => targetWork.style.backgroundColor = 'transparent', 1500);\
-        \}\
-    \}, 100);\
-\}\
-\
-// Event Listener f\'fcr Modal Close\
-document.getElementById('close-modal').addEventListener('click', () => \{\
-    document.getElementById('modal-overlay').classList.add('hidden');\
-\});\
-\
-// Timeline Setup (noUiSlider)\
-function initTimeline() \{\
-    const slider = document.getElementById('timeline-slider');\
-    noUiSlider.create(slider, \{\
-        start: [1500, 2026],\
-        connect: true,\
-        step: 5, // 5-Jahres-Schritte wie gew\'fcnscht\
-        range: \{ 'min': 1500, 'max': 2026 \}\
-    \});\
-\
-    slider.noUiSlider.on('slide', (values) => \{\
-        document.getElementById('year-start').innerText = Math.round(values[0]);\
-        document.getElementById('year-end').innerText = Math.round(values[1]);\
-        updateView(); // Pins updaten sich beim Verschieben (smooth)\
-    \});\
-\}\
-\
-function initSearchAndFilters() \{\
-    document.getElementById('search-input').addEventListener('input', updateView);\
-    // Hier Event-Listener f\'fcr Dropdown-Checkboxen hinzuf\'fcgen\
-\}\
-\
-// Start der App\
-init();}
+const FILTER_CATEGORIES = {
+    genre: ["Roman", "Novelle", "Erzählung", "Kurzgeschichte", "Drama", "Lyrik", "Essay", "Fantasy", "Science Fiction", "Krimi", "Thriller"],
+    epoch: ["Renaissance", "Barock", "Aufklärung", "Romantik", "Realismus", "Naturalismus", "Moderne", "Expressionismus", "Nachkriegsliteratur", "Postmoderne", "Gegenwart"],
+    style: ["Magischer Realismus", "Existenzialismus", "Surrealismus", "Minimalismus", "Satire", "Absurd", "Psychologisch", "Dystopisch", "Poetisch"],
+    themes: ["Liebe", "Familie", "Identität", "Kindheit", "Alter", "Tod", "Krieg", "Gewalt", "Politik", "Macht", "Religion", "Freiheit", "Migration", "Kolonialismus", "Natur", "Technik", "Zeit", "Traum", "Mythologie", "Einsamkeit"]
+};
+
+// Globaler Zustand der Anwendung
+let allWorks = [];            // Flaches Array aller Werke
+let authorsDataMap = {};     // Map zur schnellen Autoren-Suche
+let activeGlobe = null;      // Globe.gl Instanz
+let activeFilters = {
+    genre: [],
+    epoch: [],
+    style: [],
+    themes: []
+};
+let activeTimeRange = [1500, 2026];
+
+// ==========================================================================
+// INITIALISIERUNG
+// ==========================================================================
+
+document.addEventListener('DOMContentLoaded', async () => {
+    initGlobe();
+    initTimeline();
+    initFilterUI();
+    initEvents();
+    await loadData();
+});
+
+// Daten laden & aufbereiten
+async function loadData() {
+    try {
+        const response = await fetch('./data/authors.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const authors = await response.json();
+
+        allWorks = [];
+        authorsDataMap = {};
+
+        authors.forEach(author => {
+            authorsDataMap[author.name] = author;
+
+            if (author.works && Array.isArray(author.works)) {
+                author.works.forEach(work => {
+                    allWorks.push({
+                        ...work,
+                        authorName: author.name,
+                        authorBirth: author.birth,
+                        authorBirthplace: author.birthplace,
+                        authorIntro: author.intro,
+                        authorLife: author.life,
+                        authorImage: author.image
+                    });
+                });
+            }
+        });
+
+        updateView();
+    } catch (error) {
+        console.error("Fehler beim Laden der Literatur-Daten:", error);
+    }
+}
+
+// ==========================================================================
+// GLOBUS INITIALISIERUNG (Globe.gl)
+// ==========================================================================
+
+function initGlobe() {
+    const container = document.getElementById('globe-container');
+    
+    activeGlobe = Globe()
+        (container)
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+        .backgroundColor('rgba(0,0,0,0)')
+        .showAtmosphere(true)
+        .atmosphereColor('#3a3a4a')
+        .atmosphereAltitude(0.15)
+        .htmlElementsData([])
+        .htmlElement(d => createPinElement(d));
+
+    // Start-Kamera-Ausrichtung
+    activeGlobe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 });
+
+    // Window Resize Handling
+    window.addEventListener('resize', () => {
+        activeGlobe.width(window.innerWidth);
+        activeGlobe.height(window.innerHeight);
+    });
+}
+
+// Erstellt ein HTML-Pin-Element inklusive 1-Sekunden-Hover
+function createPinElement(work) {
+    const el = document.createElement('div');
+    el.className = 'pin-marker';
+
+    const preview = document.createElement('div');
+    preview.className = 'hover-preview';
+    preview.innerHTML = `
+        <div class="hover-author">${escapeHTML(work.authorName)}</div>
+        <div class="hover-title">${escapeHTML(work.title)}</div>
+        <div class="hover-year">${work.year}</div>
+        <div class="hover-intro">${escapeHTML(work.intro || '')}</div>
+    `;
+    el.appendChild(preview);
+
+    // 1 Sekunde Hover Verzögerungs-Logik
+    let hoverTimer;
+    el.addEventListener('mouseenter', () => {
+        hoverTimer = setTimeout(() => {
+            preview.classList.add('visible');
+        }, 1000);
+    });
+
+    el.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimer);
+        preview.classList.remove('visible');
+    });
+
+    // Klick öffnet zentrales Modal
+    el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openAuthorModal(work);
+    });
+
+    return el;
+}
+
+// ==========================================================================
+// FILTER- & SUCHLOGIK
+// ==========================================================================
+
+function updateView() {
+    const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+
+    const filteredWorks = allWorks.filter(work => {
+        // 1. Timeline Check
+        if (work.year < activeTimeRange[0] || work.year > activeTimeRange[1]) {
+            return false;
+        }
+
+        // 2. Suche (Ausschließlich Autor, Titel, Tags - Keine Biographie/Intro)
+        if (searchTerm) {
+            const authorMatch = work.authorName.toLowerCase().includes(searchTerm);
+            const titleMatch = work.title.toLowerCase().includes(searchTerm);
+            
+            // Tags durchsuchen
+            const allWorkTags = [
+                ...(work.tags?.genre || []),
+                ...(work.tags?.epoch || []),
+                ...(work.tags?.style || []),
+                ...(work.tags?.themes || [])
+            ].map(t => t.toLowerCase());
+            
+            const tagMatch = allWorkTags.some(t => t.includes(searchTerm));
+
+            if (!authorMatch && !titleMatch && !tagMatch) {
+                return false;
+            }
+        }
+
+        // 3. Kategorie-Dropdown Filter (AND-Logik über Kategorien, OR innerhalb Kategorie)
+        for (const [category, selectedValues] of Object.entries(activeFilters)) {
+            if (selectedValues.length > 0) {
+                const workTagsInCat = work.tags?.[category] || [];
+                const hasMatch = selectedValues.some(val => workTagsInCat.includes(val));
+                if (!hasMatch) return false;
+            }
+        }
+
+        return true;
+    });
+
+    // Anzahlanzeige aktualisieren
+    document.getElementById('visible-count').innerText = filteredWorks.length;
+
+    // Globus Pins aktualisieren
+    if (activeGlobe) {
+        activeGlobe.htmlElementsData(filteredWorks);
+    }
+}
+
+// UI Dropdowns für Filter dynamisch bauen
+function initFilterUI() {
+    Object.keys(FILTER_CATEGORIES).forEach(category => {
+        const menu = document.getElementById(`dropdown-${category}`);
+        if (!menu) return;
+
+        menu.innerHTML = '';
+        FILTER_CATEGORIES[category].forEach(item => {
+            const label = document.createElement('label');
+            label.className = 'dropdown-item';
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = item;
+            
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    activeFilters[category].push(item);
+                } else {
+                    activeFilters[category] = activeFilters[category].filter(v => v !== item);
+                }
+                
+                // Button-Hervorhebung
+                const wrapper = menu.closest('.filter-dropdown-wrapper');
+                if (activeFilters[category].length > 0) {
+                    wrapper.classList.add('has-active');
+                } else {
+                    wrapper.classList.remove('has-active');
+                }
+                
+                updateView();
+            });
+
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(item));
+            menu.appendChild(label);
+        });
+    });
+}
+
+// ==========================================================================
+// TIMELINE SETUP (noUiSlider)
+// ==========================================================================
+
+function initTimeline() {
+    const slider = document.getElementById('timeline-slider');
+    
+    noUiSlider.create(slider, {
+        start: [1500, 2026],
+        connect: true,
+        step: 5,
+        range: {
+            'min': 1500,
+            'max': 2026
+        }
+    });
+
+    slider.noUiSlider.on('update', (values) => {
+        const start = Math.round(values[0]);
+        const end = Math.round(values[1]);
+        
+        document.getElementById('year-start').innerText = start;
+        document.getElementById('year-end').innerText = end;
+        
+        activeTimeRange = [start, end];
+        updateView();
+    });
+}
+
+// ==========================================================================
+// MODAL (AUTOR & WERKE KALOG)
+// ==========================================================================
+
+function openAuthorModal(targetWork) {
+    const author = authorsDataMap[targetWork.authorName];
+    if (!author) return;
+
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContent = document.getElementById('modal-content');
+
+    // Alle Tags für Badge-Rendering flachklopfen
+    const renderTags = (tagsObj) => {
+        if (!tagsObj) return '';
+        const all = [
+            ...(tagsObj.genre || []),
+            ...(tagsObj.epoch || []),
+            ...(tagsObj.style || []),
+            ...(tagsObj.themes || [])
+        ];
+        return all.map(t => `<span class="tag-badge">${escapeHTML(t)}</span>`).join('');
+    };
+
+    // Werke-Abschnitte aufbauen
+    const worksHTML = (author.works || []).map(w => `
+        <div class="work-block" id="work-target-${escapeHTML(w.id || w.title.replace(/\s+/g, '-'))}">
+            <div class="work-title">${escapeHTML(w.title)}</div>
+            <div class="work-meta">${w.year} • ${escapeHTML(w.location || '')}</div>
+            <div class="tag-cloud">${renderTags(w.tags)}</div>
+            <p class="modal-text">${escapeHTML(w.description || w.intro || '')}</p>
+        </div>
+    `).join('');
+
+    modalContent.innerHTML = `
+        <div class="modal-author-header">
+            <h1 class="modal-author-name">${escapeHTML(author.name)}</h1>
+            <div class="modal-author-meta">* ${author.birth || 'Unbekannt'} ${author.birthplace ? 'in ' + escapeHTML(author.birthplace) : ''}</div>
+            ${author.intro ? `<p class="modal-text" style="font-weight: bold; margin-bottom: 16px;">${escapeHTML(author.intro)}</p>` : ''}
+            
+            <div class="modal-section-title">Leben und Wirken</div>
+            <p class="modal-text">${escapeHTML(author.life || 'Keine Biografie vorhanden.')}</p>
+        </div>
+
+        <div class="modal-section-title" style="margin-top: 40px;">Wichtigste Werke</div>
+        ${worksHTML}
+    `;
+
+    modalOverlay.classList.remove('hidden');
+
+    // Automatisch zum geklickten Werk scrollen und es hervorheben
+    const targetElementId = `work-target-${targetWork.id || targetWork.title.replace(/\s+/g, '-')}`;
+    setTimeout(() => {
+        const targetEl = document.getElementById(targetElementId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetEl.classList.add('highlight');
+            setTimeout(() => targetEl.classList.remove('highlight'), 2000);
+        }
+    }, 150);
+}
+
+// ==========================================================================
+// EVENT HANDLING
+// ==========================================================================
+
+function initEvents() {
+    // Suche Input Event
+    document.getElementById('search-input').addEventListener('input', updateView);
+
+    // Filter-Dropdowns öffnen/schließen
+    document.querySelectorAll('.filter-dropdown-wrapper').forEach(wrapper => {
+        const btn = wrapper.querySelector('.btn-filter');
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = wrapper.classList.contains('open');
+            closeAllDropdowns();
+            if (!isOpen) wrapper.classList.add('open');
+        });
+    });
+
+    document.addEventListener('click', closeAllDropdowns);
+
+    // Modal schließ-Aktionen
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    document.getElementById('modal-overlay').addEventListener('click', (e) => {
+        if (e.target.id === 'modal-overlay') closeModal();
+    });
+
+    // Zufallswerk Entdecken Button
+    document.getElementById('btn-random').addEventListener('click', discoverRandomWork);
+}
+
+function closeAllDropdowns() {
+    document.querySelectorAll('.filter-dropdown-wrapper').forEach(w => w.classList.remove('open'));
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.add('hidden');
+}
+
+function discoverRandomWork() {
+    const visibleWorks = activeGlobe.htmlElementsData();
+    if (!visibleWorks || visibleWorks.length === 0) return;
+
+    const randomWork = visibleWorks[Math.floor(Math.random() * visibleWorks.length)];
+    
+    // Sanft zum Werk schwenken auf dem Globus
+    activeGlobe.pointOfView({
+        lat: randomWork.lat,
+        lng: randomWork.lng,
+        altitude: 1.8
+    }, 1200);
+
+    // Öffnet nach dem Schwenk das Modal
+    setTimeout(() => {
+        openAuthorModal(randomWork);
+    }, 1300);
+}
+
+// Hilfsfunktion zum Verhindern von XSS
+function escapeHTML(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
