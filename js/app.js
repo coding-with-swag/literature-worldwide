@@ -70,12 +70,15 @@ function initGlobe() {
     
     activeGlobe = Globe()
         (container)
-        .backgroundColor('#b6d0e2') /* Schönes, klares Ozean-Blau */
+        .backgroundColor('#f4f4f7') 
         .showAtmosphere(true)
         .atmosphereColor('#ffffff')
         .atmosphereAltitude(0.1)
         .htmlElementsData([])
         .htmlElement(d => createPinElement(d));
+
+    const globeMaterial = activeGlobe.globeMaterial();
+    globeMaterial.color.set('#b6d0e2');
 
     // Lade Vektor-Polygone für präzise helle Ländergrenzen
     fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson')
