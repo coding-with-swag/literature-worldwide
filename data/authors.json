@@ -1,59 +1,60 @@
-
-    "name": "Juli Zeh",\
-    "birth": 1974,\
-    "birthplace": "Bonn",\
-    "image": "images/juli_zeh.jpg",\
-    "intro": "Deutsche Schriftstellerin, Juristin und Verfassungsrichterin. Ihre Werke untersuchen Freiheit, Moral und Macht im Spannungsfeld zwischen Individuum und Staat.",\
-    "life": "Juli Zeh (*1974 in Bonn) studierte Rechtswissenschaften (Schwerpunkt V\'f6lkerrecht) sowie am Deutschen Literaturinstitut Leipzig. Sie promovierte im V\'f6lkerrecht und wurde 2018 zur ehrenamtlichen Richterin am Verfassungsgericht des Landes Brandenburg gew\'e4hlt. Seit 2007 lebt sie im Havelland (Brandenburg). Ihre Romane verbinden soziologische und philosophische Gedankenexperimente mit packenden Dramen.",\
-    "works": [\
-      \{\
-        "id": "corpus-delicti",\
-        "title": "Corpus Delicti",\
-        "year": 2009,\
-        "location": "Leipzig",\
-        "lat": 51.3397,\
-        "lng": 12.3731,\
-        "intro": "In einem Staat, der Gesundheit erzwingt,\\nk\'e4mpft eine Biologin nach dem Tod ihres Bruders\\num die W\'fcrde individueller Freiheit.",\
-        "description": "Das Werk spielt in einer dystopischen Naherzukunft: Die sogenannte 'METHODE' stellt die Gesundheit der Bev\'f6lkerung \'fcber alles. Krankheiten gelten als Verbrechen, Selbstoptimierung ist Pflicht. Als Mia Holls Bruder f\'e4lschlicherweise verurteilt wird und sich das Leben nimmt, beginnt sie das l\'fcckenlose Kontrollsystem infrage zu stellen. Es entwickelt sich ein rhetorischer Schlagabtausch zwischen ihr und dem Staatsideologen Heinrich Kramer \'fcber die Grenzen staatlicher F\'fcrsorge und das Recht auf freie Selbstbestimmung.",\
-        "tags": \{\
-          "genre": ["Roman"],\
-          "epoch": ["Gegenwart"],\
-          "style": ["Dystopisch", "Psychologisch"],\
-          "themes": ["Freiheit", "Politik", "Macht"]\
-        \}\
-      \},\
-      \{\
-        "id": "unterleuten",\
-        "title": "Unterleuten",\
-        "year": 2016,\
-        "location": "Barnewitz (Havelland)",\
-        "lat": 52.5333,\
-        "lng": 12.5667,\
-        "intro": "Ein geplantes Windkraftprojekt entfacht\\nalte Wunden und Machtk\'e4mpfe\\nin einem brandenburgischen Dorf.",\
-        "description": "Der Gesellschaftsroman untersucht das Gef\'fcge eines fiktiven Dorfes in Brandenburg. Als ein Investor Windr\'e4der bauen will, prallen Alteingesessene (mit DDR-Vergangenheit) und zugezogene St\'e4dter aufeinander. Zeh bedient keine einfachen Gut-B\'f6se-Muster, sondern beleuchtet das Geschehen aus wechselnden Perspektiven \'96 jede Figur handelt aus ihren eigenen Verletzungen und logischen \'dcberzeugungen heraus. Ein vielschichtiges Portr\'e4t moderner Gemeinschaft und Polarisierung.",\
-        "tags": \{\
-          "genre": ["Roman"],\
-          "epoch": ["Gegenwart"],\
-          "style": ["Psychologisch"],\
-          "themes": ["Politik", "Macht", "Natur", "Einsamkeit"]\
-        \}\
-      \},\
-      \{\
-        "id": "ueber-menschen",\
-        "title": "\'dcber Menschen",\
-        "year": 2021,\
-        "location": "Prignitz (Brandenburg)",\
-        "lat": 53.0000,\
-        "lng": 12.0000,\
-        "intro": "Flucht aufs Land in der Pandemie:\\nEine Gro\'dfst\'e4dterin trifft auf ihren Nachbarn \'96\\nund auf die eigene Vorurteilshaftigkeit.",\
-        "description": "Dora zieht w\'e4hrend der Corona-Pandemie aus Berlin in ein kleines brandenburgisches Dorf. Dort st\'f6\'dft sie auf ihren Nachbarn Gote, der sich rasch als rechter 'Dorf-Scharfmacher' entpuppt. Der Roman stellt die unbequeme Frage, wie menschliche Begegnung m\'f6glich ist, wenn politische Abgr\'fcnde dazwischenliegen. Ohne Radikalismus zu verharmlosen, seziert Zeh die Mechaniken gesellschaftlicher Entfremdung und die Suche nach Vers\'f6hnung im Allt\'e4glichen.",\
-        "tags": \{\
-          "genre": ["Roman"],\
-          "epoch": ["Gegenwart"],\
-          "style": ["Psychologisch"],\
-          "themes": ["Identit\'e4t", "Politik", "Einsamkeit", "Freiheit"]\
-        \}\
-      \}\
-    ]\
-  \}\
-]}
+[
+  {
+    "name": "Juli Zeh",
+    "birth": 1974,
+    "birthplace": "Bonn",
+    "image": "images/juli_zeh.jpg",
+    "intro": "Deutsche Schriftstellerin, Juristin und Verfassungsrichterin. Ihre Werke untersuchen Freiheit, Moral und Macht im Spannungsfeld zwischen Individuum und Staat.",
+    "life": "Juli Zeh (*1974 in Bonn) studierte Rechtswissenschaften (Schwerpunkt Völkerrecht) sowie am Deutschen Literaturinstitut Leipzig. Sie promovierte im Völkerrecht und wurde 2018 zur ehrenamtlichen Richterin am Verfassungsgericht des Landes Brandenburg gewählt. Seit 2007 lebt sie im Havelland (Brandenburg). Ihre Romane verbinden soziologische und philosophische Gedankenexperimente mit packenden Dramen.",
+    "works": [
+      {
+        "id": "corpus-delicti",
+        "title": "Corpus Delicti",
+        "year": 2009,
+        "location": "Leipzig",
+        "lat": 51.3397,
+        "lng": 12.3731,
+        "intro": "In einem Staat, der Gesundheit erzwingt,\nkämpft eine Biologin nach dem Tod ihres Bruders\num die Würde individueller Freiheit.",
+        "description": "Das Werk spielt in einer dystopischen Naherzukunft: Die sogenannte 'METHODE' stellt die Gesundheit der Bevölkerung über alles. Krankheiten gelten als Verbrechen, Selbstoptimierung ist Pflicht. Als Mia Holls Bruder fälschlicherweise verurteilt wird und sich das Leben nimmt, beginnt sie das lückenlose Kontrollsystem infrage zu stellen. Es entwickelt sich ein rhetorischer Schlagabtausch zwischen ihr und dem Staatsideologen Heinrich Kramer über die Grenzen staatlicher Fürsorge und das Recht auf freie Selbstbestimmung.",
+        "tags": {
+          "genre": ["Roman"],
+          "epoch": ["Gegenwart"],
+          "style": ["Dystopisch", "Psychologisch"],
+          "themes": ["Freiheit", "Politik", "Macht"]
+        }
+      },
+      {
+        "id": "unterleuten",
+        "title": "Unterleuten",
+        "year": 2016,
+        "location": "Barnewitz (Havelland)",
+        "lat": 52.5333,
+        "lng": 12.5667,
+        "intro": "Ein geplantes Windkraftprojekt entfacht\nalte Wunden und Machtkämpfe\nin einem brandenburgischen Dorf.",
+        "description": "Der Gesellschaftsroman untersucht das Gefüge eines fiktiven Dorfes in Brandenburg. Als ein Investor Windräder bauen will, prallen Alteingesessene (mit DDR-Vergangenheit) und zugezogene Städter aufeinander. Zeh bedient keine einfachen Gut-Böse-Muster, sondern beleuchtet das Geschehen aus wechselnden Perspektiven – jede Figur handelt aus ihren eigenen Verletzungen und logischen Überzeugungen heraus. Ein vielschichtiges Porträt moderner Gemeinschaft und Polarisierung.",
+        "tags": {
+          "genre": ["Roman"],
+          "epoch": ["Gegenwart"],
+          "style": ["Psychologisch"],
+          "themes": ["Politik", "Macht", "Natur", "Einsamkeit"]
+        }
+      },
+      {
+        "id": "ueber-menschen",
+        "title": "Über Menschen",
+        "year": 2021,
+        "location": "Prignitz (Brandenburg)",
+        "lat": 53.0000,
+        "lng": 12.0000,
+        "intro": "Flucht aufs Land in der Pandemie:\nEine Großstädterin trifft auf ihren Nachbarn –\nund auf die eigene Vorurteilshaftigkeit.",
+        "description": "Dora zieht während der Corona-Pandemie aus Berlin in ein kleines brandenburgisches Dorf. Dort stößt sie auf ihren Nachbarn Gote, der sich rasch als rechter 'Dorf-Scharfmacher' entpuppt. Der Roman stellt die unbequeme Frage, wie menschliche Begegnung möglich ist, wenn politische Abgründe dazwischenliegen. Ohne Radikalismus zu verharmlosen, seziert Zeh die Mechaniken gesellschaftlicher Entfremdung und die Suche nach Versöhnung im Alltäglichen.",
+        "tags": {
+          "genre": ["Roman"],
+          "epoch": ["Gegenwart"],
+          "style": ["Psychologisch"],
+          "themes": ["Identität", "Politik", "Einsamkeit", "Freiheit"]
+        }
+      }
+    ]
+  }
+]
