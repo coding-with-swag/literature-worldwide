@@ -286,6 +286,28 @@ function openAuthorModal(targetWork) {
         </div>
     `).join('');
 
+
+    const literaryWorkHTML = author.literaryWork ? `
+        <div class="modal-section-title" style="margin-top: 30px;">Leben und Wirken: Literarisches Werk</div>
+        <p class="modal-text">${escapeHTML(author.literaryWork)}</p>
+    ` : '';
+
+    modalContent.innerHTML = `
+        <div class="modal-author-header">
+            <h1 class="modal-author-name">${escapeHTML(author.name)}</h1>
+            <div class="modal-author-meta">* ${author.birth || 'Unbekannt'} ${author.birthplace ? 'in ' + escapeHTML(author.birthplace) : ''}</div>
+            ${author.intro ? `<p class="modal-text" style="font-weight: bold; margin-bottom: 16px;">${escapeHTML(author.intro)}</p>` : ''}
+            
+            <div class="modal-section-title">Leben und Wirken</div>
+            <p class="modal-text">${escapeHTML(author.life || 'Keine Biografie vorhanden.')}</p>
+            
+            ${literaryWorkHTML}
+        </div>
+
+        <div class="modal-section-title" style="margin-top: 40px;">Wichtigste Werke</div>
+        ${worksHTML}
+    `;
+
     modalContent.innerHTML = `
         <div class="modal-author-header">
             <h1 class="modal-author-name">${escapeHTML(author.name)}</h1>
