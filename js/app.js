@@ -1,5 +1,5 @@
 // ==========================================================================
-// KONFIGURATION & DATEN-KATEGORIEN
+// KONFIGURATION & CATEGORIES
 // ==========================================================================
 
 const FILTER_CATEGORIES = {
@@ -9,16 +9,10 @@ const FILTER_CATEGORIES = {
     themes: ["Liebe", "Familie", "Identität", "Kindheit", "Alter", "Tod", "Krieg", "Gewalt", "Politik", "Macht", "Religion", "Freiheit", "Migration", "Kolonialismus", "Natur", "Technik", "Zeit", "Traum", "Mythologie", "Einsamkeit"]
 };
 
-// Globaler Zustand der Anwendung
-let allWorks = [];            // Flaches Array aller Werke
-let authorsDataMap = {};     // Map zur schnellen Autoren-Suche
-let activeGlobe = null;      // Globe.gl Instanz
-let activeFilters = {
-    genre: [],
-    epoch: [],
-    style: [],
-    themes: []
-};
+let allWorks = [];
+let authorsDataMap = {};
+let activeGlobe = null;
+let activeFilters = { genre: [], epoch: [], style: [], themes: [] };
 let activeTimeRange = [1500, 2026];
 
 // ==========================================================================
@@ -33,10 +27,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
 });
 
-// Daten laden & aufbereiten
+// Daten aus JSON laden
 async function loadData() {
     try {
-        const response = await fetch('./data/authors.json');
+        const response = await fetch('data/authors.json');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const authors = await response.json();
 
@@ -68,7 +62,7 @@ async function loadData() {
 }
 
 // ==========================================================================
-// GLOBUS INITIALISIERUNG (Globe.gl)
+// GLOBUS INITIALISIERUNG (HELL + VEKTOR-LÄNDERGRENZEN)
 // ==========================================================================
 
 function initGlobe() {
@@ -76,25 +70,36 @@ function initGlobe() {
     
     activeGlobe = Globe()
         (container)
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-        .backgroundColor('rgba(0,0,0,0)')
+        .backgroundColor('#f4f4f7') // Heller Hintergrund
         .showAtmosphere(true)
-        .atmosphereColor('#3a3a4a')
-        .atmosphereAltitude(0.15)
+        .atmosphereColor('#cbd5e1')
+        .atmosphereAltitude(0.1)
         .htmlElementsData([])
         .htmlElement(d => createPinElement(d));
 
-    // Start-Kamera-Ausrichtung
+    // Lade Vektor-Polygone für präzise helle Ländergrenzen
+    fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson')
+        .then(res => res.json())
+        .then(countries => {
+            activeGlobe
+                .polygonsData(countries.features)
+                .polygonCapColor(() => '#ffffff')       // Weiße Landmassen
+                .polygonSideColor(() => '#e2e8f0')      // 3D-Kanten
+                .polygonStrokeColor(() => '#94a3b8')    // Graue Ländergrenzen
+                .polygonAltitude(0.005);
+        })
+        .catch(err => console.error("Ländergrenzen konnten nicht geladen werden:", err));
+
+    // Kamera-Startposition
     activeGlobe.pointOfView({ lat: 20, lng: 10, altitude: 2.2 });
 
-    // Window Resize Handling
     window.addEventListener('resize', () => {
         activeGlobe.width(window.innerWidth);
         activeGlobe.height(window.innerHeight);
     });
 }
 
-// Erstellt ein HTML-Pin-Element inklusive 1-Sekunden-Hover
+// Erstellt HTML-Pins mit exakt 1500ms Hover
 function createPinElement(work) {
     const el = document.createElement('div');
     el.className = 'pin-marker';
@@ -109,12 +114,12 @@ function createPinElement(work) {
     `;
     el.appendChild(preview);
 
-    // 1 Sekunde Hover Verzögerungs-Logik
+    // Exakt 1500 ms Hover-Verzögerung
     let hoverTimer;
     el.addEventListener('mouseenter', () => {
         hoverTimer = setTimeout(() => {
             preview.classList.add('visible');
-        }, 1000);
+        }, 1500); // 1,5 Sekunden
     });
 
     el.addEventListener('mouseleave', () => {
@@ -122,7 +127,7 @@ function createPinElement(work) {
         preview.classList.remove('visible');
     });
 
-    // Klick öffnet zentrales Modal
+    // Klick öffnet das Autoren-Modal
     el.addEventListener('click', (e) => {
         e.stopPropagation();
         openAuthorModal(work);
@@ -132,24 +137,21 @@ function createPinElement(work) {
 }
 
 // ==========================================================================
-// FILTER- & SUCHLOGIK
+// FILTER- LOGIK
 // ==========================================================================
 
 function updateView() {
     const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
 
     const filteredWorks = allWorks.filter(work => {
-        // 1. Timeline Check
-        if (work.year < activeTimeRange[0] || work.year > activeTimeRange[1]) {
-            return false;
-        }
+        // 1. Timeline
+        if (work.year < activeTimeRange[0] || work.year > activeTimeRange[1]) return false;
 
-        // 2. Suche (Ausschließlich Autor, Titel, Tags - Keine Biographie/Intro)
+        // 2. Suche
         if (searchTerm) {
             const authorMatch = work.authorName.toLowerCase().includes(searchTerm);
             const titleMatch = work.title.toLowerCase().includes(searchTerm);
             
-            // Tags durchsuchen
             const allWorkTags = [
                 ...(work.tags?.genre || []),
                 ...(work.tags?.epoch || []),
@@ -159,12 +161,10 @@ function updateView() {
             
             const tagMatch = allWorkTags.some(t => t.includes(searchTerm));
 
-            if (!authorMatch && !titleMatch && !tagMatch) {
-                return false;
-            }
+            if (!authorMatch && !titleMatch && !tagMatch) return false;
         }
 
-        // 3. Kategorie-Dropdown Filter (AND-Logik über Kategorien, OR innerhalb Kategorie)
+        // 3. Dropdown-Kategorien
         for (const [category, selectedValues] of Object.entries(activeFilters)) {
             if (selectedValues.length > 0) {
                 const workTagsInCat = work.tags?.[category] || [];
@@ -176,16 +176,13 @@ function updateView() {
         return true;
     });
 
-    // Anzahlanzeige aktualisieren
     document.getElementById('visible-count').innerText = filteredWorks.length;
 
-    // Globus Pins aktualisieren
     if (activeGlobe) {
         activeGlobe.htmlElementsData(filteredWorks);
     }
 }
 
-// UI Dropdowns für Filter dynamisch bauen
 function initFilterUI() {
     Object.keys(FILTER_CATEGORIES).forEach(category => {
         const menu = document.getElementById(`dropdown-${category}`);
@@ -207,7 +204,6 @@ function initFilterUI() {
                     activeFilters[category] = activeFilters[category].filter(v => v !== item);
                 }
                 
-                // Button-Hervorhebung
                 const wrapper = menu.closest('.filter-dropdown-wrapper');
                 if (activeFilters[category].length > 0) {
                     wrapper.classList.add('has-active');
@@ -226,7 +222,7 @@ function initFilterUI() {
 }
 
 // ==========================================================================
-// TIMELINE SETUP (noUiSlider)
+// TIMELINE
 // ==========================================================================
 
 function initTimeline() {
@@ -236,10 +232,7 @@ function initTimeline() {
         start: [1500, 2026],
         connect: true,
         step: 5,
-        range: {
-            'min': 1500,
-            'max': 2026
-        }
+        range: { 'min': 1500, 'max': 2026 }
     });
 
     slider.noUiSlider.on('update', (values) => {
@@ -255,7 +248,7 @@ function initTimeline() {
 }
 
 // ==========================================================================
-// MODAL (AUTOR & WERKE KALOG)
+// MODAL POPUP
 // ==========================================================================
 
 function openAuthorModal(targetWork) {
@@ -265,7 +258,6 @@ function openAuthorModal(targetWork) {
     const modalOverlay = document.getElementById('modal-overlay');
     const modalContent = document.getElementById('modal-content');
 
-    // Alle Tags für Badge-Rendering flachklopfen
     const renderTags = (tagsObj) => {
         if (!tagsObj) return '';
         const all = [
@@ -277,7 +269,6 @@ function openAuthorModal(targetWork) {
         return all.map(t => `<span class="tag-badge">${escapeHTML(t)}</span>`).join('');
     };
 
-    // Werke-Abschnitte aufbauen
     const worksHTML = (author.works || []).map(w => `
         <div class="work-block" id="work-target-${escapeHTML(w.id || w.title.replace(/\s+/g, '-'))}">
             <div class="work-title">${escapeHTML(w.title)}</div>
@@ -303,7 +294,6 @@ function openAuthorModal(targetWork) {
 
     modalOverlay.classList.remove('hidden');
 
-    // Automatisch zum geklickten Werk scrollen und es hervorheben
     const targetElementId = `work-target-${targetWork.id || targetWork.title.replace(/\s+/g, '-')}`;
     setTimeout(() => {
         const targetEl = document.getElementById(targetElementId);
@@ -316,14 +306,12 @@ function openAuthorModal(targetWork) {
 }
 
 // ==========================================================================
-// EVENT HANDLING
+// EVENTS
 // ==========================================================================
 
 function initEvents() {
-    // Suche Input Event
     document.getElementById('search-input').addEventListener('input', updateView);
 
-    // Filter-Dropdowns öffnen/schließen
     document.querySelectorAll('.filter-dropdown-wrapper').forEach(wrapper => {
         const btn = wrapper.querySelector('.btn-filter');
         btn.addEventListener('click', (e) => {
@@ -336,13 +324,11 @@ function initEvents() {
 
     document.addEventListener('click', closeAllDropdowns);
 
-    // Modal schließ-Aktionen
     document.getElementById('close-modal').addEventListener('click', closeModal);
     document.getElementById('modal-overlay').addEventListener('click', (e) => {
         if (e.target.id === 'modal-overlay') closeModal();
     });
 
-    // Zufallswerk Entdecken Button
     document.getElementById('btn-random').addEventListener('click', discoverRandomWork);
 }
 
@@ -360,20 +346,17 @@ function discoverRandomWork() {
 
     const randomWork = visibleWorks[Math.floor(Math.random() * visibleWorks.length)];
     
-    // Sanft zum Werk schwenken auf dem Globus
     activeGlobe.pointOfView({
         lat: randomWork.lat,
         lng: randomWork.lng,
         altitude: 1.8
     }, 1200);
 
-    // Öffnet nach dem Schwenk das Modal
     setTimeout(() => {
         openAuthorModal(randomWork);
     }, 1300);
 }
 
-// Hilfsfunktion zum Verhindern von XSS
 function escapeHTML(str) {
     if (!str) return '';
     return String(str)
