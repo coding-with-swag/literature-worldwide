@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archiv der Weltliteratur | 1500 – 2026</title>
+    
+    <!-- Google Fonts: Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- noUiSlider (Timeline Slider) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/globe.gl"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
+</head>
+<body>
+
+    <!-- 3D Globus Hintergrund -->
+    <div id="globe-container"></div>
+
+    <!-- UI Overlay Navigation Top -->
+    <header class="ui-layer top-bar">
+        <div class="top-left-group">
+            <div class="stats-badge">
+                <span class="pulse-dot"></span>
+                <span id="visible-count">0</span> Werke
+            </div>
+            <button id="btn-random" class="btn-secondary" title="Zufallswerk entdecken">
+                ✦ Entdecken
+            </button>
+        </div>
+        
+        <!-- Suchleiste Oben Mittig -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Suche: Autor, Titel, Tags..." autocomplete="off">
+        </div>
+        
+        <!-- Filterleiste Oben Rechts -->
+        <nav class="filter-container">
+            <div class="filter-dropdown-wrapper" data-category="genre">
+                <button class="btn-filter" id="btn-genre">Genre ▾</button>
+                <div class="dropdown-menu" id="dropdown-genre"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="epoch">
+                <button class="btn-filter" id="btn-epoch">Epoche ▾</button>
+                <div class="dropdown-menu" id="dropdown-epoch"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="style">
+                <button class="btn-filter" id="btn-style">Stil ▾</button>
+                <div class="dropdown-menu" id="dropdown-style"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="themes">
+                <button class="btn-filter" id="btn-themes">Themen ▾</button>
+                <div class="dropdown-menu" id="dropdown-themes"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Timeline Navigation Bottom -->
+    <footer class="ui-layer bottom-bar">
+        <div class="timeline-card">
+            <div class="timeline-header">
+                <span class="timeline-title">ZEITRAUM</span>
+                <div class="timeline-years">
+                    <span id="year-start">1500</span> – <span id="year-end">2026</span>
+                </div>
+            </div>
+            <div id="timeline-slider"></div>
+        </div>
+    </footer>
+
+    <!-- Autoren & Werke Zentrales Modal Popup -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button id="close-modal" class="close-btn" aria-label="Schließen">✕</button>
+            <div id="modal-content">
+                <!-- Wird dynamisch per JS gefüllt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hauptskript -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
