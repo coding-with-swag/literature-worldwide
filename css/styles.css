@@ -1,129 +1,493 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2870
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+/* ==========================================================================
+   MUSEUMS-ÄSTHETIK & TYPOGRAFIE
+   ========================================================================== */
 
-\f0\fs24 \cf0 :root \{\
-    --bg-dark: #0a0a0a;\
-    --text-light: #e0e0e0;\
-    --accent: #ffffff;\
-    --card-bg: rgba(20, 20, 20, 0.85);\
-    --radius: 16px;\
-    --font-mono: 'Space Mono', monospace;\
-    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\
-\}\
-\
-* \{ box-sizing: border-box; margin: 0; padding: 0; \}\
-\
-body \{\
-    font-family: var(--font-mono);\
-    background-color: var(--bg-dark);\
-    color: var(--text-light);\
-    overflow: hidden; /* Verhindert Scrollbars durch den Globus */\
-\}\
-\
-/* 3D Globus Hintergrund */\
-#globe-container \{\
-    position: absolute;\
-    top: 0; left: 0; width: 100vw; height: 100vh;\
-    z-index: 0;\
-\}\
-\
-/* UI Layers (Glassmorphismus) */\
-.ui-layer \{\
-    position: absolute;\
-    z-index: 10;\
-    padding: 20px;\
-    display: flex;\
-    justify-content: space-between;\
-    align-items: center;\
-    width: 100%;\
-    pointer-events: none; /* Klicks auf den Globus durchlassen... */\
-\}\
-.ui-layer > * \{\
-    pointer-events: auto; /* ...au\'dfer auf UI-Elemente */\
-\}\
-\
-.top-bar \{ top: 0; \}\
-.bottom-bar \{ \
-    bottom: 40px; \
-    flex-direction: column;\
-    width: 60%;\
-    left: 20%;\
-\}\
-\
-/* Suche & Buttons */\
-input[type="text"], .btn-filter \{\
-    background: var(--card-bg);\
-    border: 1px solid rgba(255,255,255,0.1);\
-    color: var(--text-light);\
-    font-family: var(--font-mono);\
-    padding: 12px 24px;\
-    border-radius: 30px;\
-    backdrop-filter: blur(10px);\
-    outline: none;\
-    transition: var(--transition);\
-\}\
-\
-input[type="text"]:focus, .btn-filter:hover \{\
-    border-color: var(--accent);\
-    box-shadow: 0 0 15px rgba(255,255,255,0.1);\
-\}\
-\
-/* Globe Pins (HTML Elements) */\
-.pin-marker \{\
-    width: 12px; height: 12px;\
-    background: var(--accent);\
-    border-radius: 50%;\
-    cursor: pointer;\
-    box-shadow: 0 0 10px rgba(255,255,255,0.8);\
-    transition: transform 0.3s ease;\
-\}\
-.pin-marker:hover \{ transform: scale(1.5); \}\
-\
-/* Hover Preview Popup */\
-.hover-preview \{\
-    position: absolute;\
-    bottom: 20px; left: 50%;\
-    transform: translateX(-50%);\
-    background: var(--card-bg);\
-    border: 1px solid rgba(255,255,255,0.1);\
-    padding: 15px;\
-    border-radius: var(--radius);\
-    width: 250px;\
-    backdrop-filter: blur(10px);\
-    opacity: 0;\
-    transition: opacity 0.3s ease;\
-    pointer-events: none;\
-\}\
-\
-/* Modal (Zentrales Popup) */\
-#modal-overlay \{\
-    position: fixed;\
-    top: 0; left: 0; width: 100vw; height: 100vh;\
-    background: rgba(0,0,0,0.7);\
-    backdrop-filter: blur(5px);\
-    z-index: 100;\
-    display: flex;\
-    justify-content: center;\
-    align-items: center;\
-    opacity: 1;\
-    transition: var(--transition);\
-\}\
-#modal-overlay.hidden \{\
-    opacity: 0;\
-    pointer-events: none;\
-\}\
-.modal-card \{\
-    background: #111;\
-    width: 90%; max-width: 800px;\
-    max-height: 85vh;\
-    border-radius: var(--radius);\
-    padding: 40px;\
-    overflow-y: auto;\
-    position: relative;\
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);\
-    scroll-behavior: smooth; /* Wichtig f\'fcr das automatische Scrollen zum Werk */\
-\}}
+:root {
+    --bg-dark: #08080a;
+    --card-bg: rgba(18, 18, 22, 0.85);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --text-main: #f0f0f2;
+    --text-muted: #a0a0ab;
+    --accent-glow: rgba(255, 255, 255, 0.9);
+    --accent-highlight: rgba(255, 255, 255, 0.08);
+    --font-mono: 'Space Mono', monospace;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-mono);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   3D GLOBUS & OVERLAYS
+   ========================================================================== */
+
+#globe-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+.ui-layer {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.ui-layer > * {
+    pointer-events: auto;
+}
+
+.top-bar {
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.top-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stats-badge {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-main);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #34d399;
+}
+
+/* ==========================================================================
+   BUTTONS & FORMULARE
+   ========================================================================== */
+
+.btn-secondary, .btn-filter {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    padding: 10px 18px;
+    border-radius: 30px;
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-secondary:hover, .btn-filter:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(30, 30, 38, 0.95);
+    transform: translateY(-1px);
+}
+
+.search-container {
+    flex: 0 1 360px;
+}
+
+#search-input {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 12px 22px;
+    border-radius: 30px;
+    backdrop-filter: blur(16px);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+#search-input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   FILTER DROPDOWNS
+   ========================================================================== */
+
+.filter-container {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    max-height: 280px;
+    overflow-y: auto;
+    background: rgba(15, 15, 18, 0.95);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    backdrop-filter: blur(20px);
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    z-index: 100;
+}
+
+.filter-dropdown-wrapper.open .dropdown-menu {
+    display: flex;
+}
+
+.filter-dropdown-wrapper.has-active .btn-filter {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    color: var(--text-main);
+}
+
+.dropdown-item input[type="checkbox"] {
+    accent-color: #ffffff;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   TIMELINE (UNTEN MITTIG)
+   ========================================================================== */
+
+.bottom-bar {
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 720px;
+}
+
+.timeline-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    padding: 20px 28px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+}
+
+.timeline-title {
+    color: var(--text-muted);
+}
+
+.timeline-years {
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+/* noUiSlider Custom Styling */
+.noUi-target {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    box-shadow: none;
+    height: 4px;
+}
+
+.noUi-connect {
+    background: #ffffff;
+}
+
+.noUi-handle {
+    border: 2px solid #ffffff;
+    background: #08080a;
+    border-radius: 50%;
+    width: 18px !important;
+    height: 18px !important;
+    right: -9px !important;
+    top: -7px !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.noUi-handle::before, .noUi-handle::after {
+    display: none;
+}
+
+/* ==========================================================================
+   GLOBE PINS & HOVER PREVIEW
+   ========================================================================== */
+
+.pin-marker {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+    transition: transform 0.3s ease;
+}
+
+.pin-marker:hover {
+    transform: scale(1.6);
+}
+
+.hover-preview {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    width: 240px;
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 50;
+}
+
+.hover-preview.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hover-author {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hover-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-main);
+    margin: 4px 0 2px 0;
+}
+
+.hover-year {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.hover-intro {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--text-main);
+    white-space: pre-line;
+}
+
+/* ==========================================================================
+   AUTOREN / WERKE POPUP MODAL
+   ========================================================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 4, 6, 0.75);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-card {
+    background: rgba(14, 14, 18, 0.95);
+    border: 1px solid var(--card-border);
+    width: 90%;
+    max-width: 760px;
+    max-height: 82vh;
+    border-radius: var(--radius-lg);
+    padding: 44px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+
+.close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-main);
+}
+
+/* Modal Content Styling */
+.modal-author-header {
+    margin-bottom: 30px;
+}
+
+.modal-author-name {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.modal-author-meta {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.modal-section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin: 24px 0 10px 0;
+}
+
+.modal-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.work-block {
+    margin-top: 32px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    transition: background-color 0.8s ease, border-color 0.8s ease;
+}
+
+.work-block.highlight {
+    background-color: var(--accent-highlight);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.work-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.work-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+}
+
+.tag-badge {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+/* Custom Scrollbar für Modal */
+.modal-card::-webkit-scrollbar, .dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-card::-webkit-scrollbar-thumb, .dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+/* Responsive Optimierung */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-container {
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    .bottom-bar {
+        width: 95%;
+    }
+    .modal-card {
+        padding: 24px;
+    }
+}
