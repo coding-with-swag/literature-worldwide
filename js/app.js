@@ -99,11 +99,17 @@ function initGlobe() {
     });
 }
 
-// Erstellt HTML-Pins mit exakt 1500ms Hover
+// Erstellt HTML-Pins 
 function createPinElement(work) {
+    // Der unsichtbare Wrapper, der von globe.gl positioniert wird
+    const wrapper = document.createElement('div');
+    wrapper.className = 'pin-wrapper';
+
+    // Der eigentliche Pin
     const el = document.createElement('div');
     el.className = 'pin-marker';
 
+    // Das Hover-Vorschaufenster
     const preview = document.createElement('div');
     preview.className = 'hover-preview';
     preview.innerHTML = `
@@ -112,14 +118,16 @@ function createPinElement(work) {
         <div class="hover-year">${work.year}</div>
         <div class="hover-intro">${escapeHTML(work.intro || '')}</div>
     `;
-    el.appendChild(preview);
+    
+    wrapper.appendChild(el);
+    wrapper.appendChild(preview);
 
-    // Exakt 1500 ms Hover-Verzögerung
+    // Hover auf 1000 ms (1 Sekunde) reduziert
     let hoverTimer;
     el.addEventListener('mouseenter', () => {
         hoverTimer = setTimeout(() => {
             preview.classList.add('visible');
-        }, 1500); // 1,5 Sekunden
+        }, 1000); 
     });
 
     el.addEventListener('mouseleave', () => {
@@ -133,7 +141,7 @@ function createPinElement(work) {
         openAuthorModal(work);
     });
 
-    return el;
+    return wrapper;
 }
 
 // ==========================================================================
