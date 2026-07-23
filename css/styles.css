@@ -1,285 +1,17 @@
 /* ==========================================================================
-   HELLES MUSEUMS-DESIGN & MONOSPACE-TYPOGRAFIE
+   GLOBE PINS (BOMBENFEST VERANKERT)
    ========================================================================== */
 
-:root {
-    --bg-light: #f4f4f7;
-    --card-bg: rgba(255, 255, 255, 0.92);
-    --card-border: rgba(0, 0, 0, 0.1);
-    --text-main: #18181b;
-    --text-muted: #71717a;
-    --accent-dark: #09090b;
-    --accent-highlight: rgba(0, 0, 0, 0.05);
-    --font-mono: 'Space Mono', monospace;
-    --radius-lg: 20px;
-    --radius-md: 12px;
-    --radius-sm: 8px;
-    --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: var(--font-mono);
-    background-color: var(--bg-light);
-    color: var(--text-main);
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* ==========================================================================
-   3D GLOBUS & OVERLAYS
-   ========================================================================== */
-
-#globe-container {
+.pin-wrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    background-color: var(--bg-light);
-}
-
-.ui-layer {
-    position: absolute;
+    pointer-events: none; /* Verhindert, dass der unsichtbare Rahmen Klicks blockiert */
     z-index: 10;
-    pointer-events: none;
 }
-
-.ui-layer > * {
-    pointer-events: auto;
-}
-
-.top-bar {
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 24px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.top-left-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.stats-badge {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(16px);
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.82rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-main);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #10b981;
-    border-radius: 50%;
-    box-shadow: 0 0 6px #10b981;
-}
-
-/* ==========================================================================
-   BUTTONS & FORMULARE (HELL)
-   ========================================================================== */
-
-.btn-secondary, .btn-filter {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-main);
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    padding: 10px 18px;
-    border-radius: 30px;
-    backdrop-filter: blur(16px);
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.btn-secondary:hover, .btn-filter:hover {
-    border-color: var(--accent-dark);
-    background: #ffffff;
-    transform: translateY(-1px);
-}
-
-.search-container {
-    flex: 0 1 360px;
-}
-
-#search-input {
-    width: 100%;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-main);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    padding: 12px 22px;
-    border-radius: 30px;
-    backdrop-filter: blur(16px);
-    outline: none;
-    transition: var(--transition-smooth);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-#search-input:focus {
-    border-color: var(--accent-dark);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-}
-
-/* ==========================================================================
-   FILTER DROPDOWNS
-   ========================================================================== */
-
-.filter-container {
-    display: flex;
-    gap: 10px;
-}
-
-.filter-dropdown-wrapper {
-    position: relative;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 220px;
-    max-height: 280px;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius-md);
-    padding: 12px;
-    backdrop-filter: blur(20px);
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    z-index: 100;
-}
-
-.filter-dropdown-wrapper.open .dropdown-menu {
-    display: flex;
-}
-
-.filter-dropdown-wrapper.has-active .btn-filter {
-    border-color: var(--accent-dark);
-    background: var(--accent-dark);
-    color: #ffffff;
-}
-
-.dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s ease;
-}
-
-.dropdown-item:hover {
-    color: var(--text-main);
-}
-
-.dropdown-item input[type="checkbox"] {
-    accent-color: var(--accent-dark);
-    cursor: pointer;
-}
-
-/* ==========================================================================
-   TIMELINE (HELL)
-   ========================================================================== */
-
-.bottom-bar {
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 720px;
-}
-
-.timeline-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(16px);
-    padding: 20px 28px;
-    border-radius: var(--radius-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.timeline-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    letter-spacing: 1px;
-}
-
-.timeline-title {
-    color: var(--text-muted);
-}
-
-.timeline-years {
-    color: var(--text-main);
-    font-weight: bold;
-}
-
-/* noUiSlider Custom Light Styling */
-.noUi-target {
-    background: rgba(0, 0, 0, 0.08);
-    border: none;
-    box-shadow: none;
-    height: 4px;
-}
-
-.noUi-connect {
-    background: var(--accent-dark);
-}
-
-.noUi-handle {
-    border: 2px solid var(--accent-dark);
-    background: #ffffff;
-    border-radius: 50%;
-    width: 18px !important;
-    height: 18px !important;
-    right: -9px !important;
-    top: -7px !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-}
-
-.noUi-handle::before, .noUi-handle::after {
-    display: none;
-}
-
-/* ==========================================================================
-   GLOBE PINS (VERANKERT & FASTSITZEND)
-   ========================================================================== */
 
 .pin-marker {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 12px;
     height: 12px;
     background: var(--accent-dark);
@@ -287,21 +19,21 @@ body {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    /* WICHTIG: Zentriert den Pin exakt über den Koordinaten */
+    /* Transformiert den Pin exakt auf den 0-Punkt des Wrappers */
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease, background-color 0.2s ease;
-    pointer-events: auto !important;
+    pointer-events: auto; /* Aktiviert Klicks auf dem Pin */
 }
 
 .pin-marker:hover {
     transform: translate(-50%, -50%) scale(1.5);
-    background: #2563eb; /* Sanftes Blau beim Hover */
+    background: #2563eb; 
 }
 
 .hover-preview {
     position: absolute;
-    bottom: 22px;
-    left: 50%;
+    bottom: 15px;
+    left: 0;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.98);
     border: 1px solid var(--card-border);
@@ -347,127 +79,4 @@ body {
     line-height: 1.35;
     color: var(--text-main);
     white-space: pre-line;
-}
-
-/* ==========================================================================
-   MODAL POPUP (HELL)
-   ========================================================================== */
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(244, 244, 247, 0.75);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.modal-card {
-    background: #ffffff;
-    border: 1px solid var(--card-border);
-    width: 90%;
-    max-width: 760px;
-    max-height: 82vh;
-    border-radius: var(--radius-lg);
-    padding: 44px;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-}
-
-.close-btn {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    font-family: var(--font-mono);
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.close-btn:hover {
-    color: var(--text-main);
-}
-
-.modal-author-name {
-    font-size: 1.8rem;
-    margin-bottom: 6px;
-    color: var(--text-main);
-}
-
-.modal-author-meta {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-.modal-section-title {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    margin: 24px 0 10px 0;
-}
-
-.modal-text {
-    font-size: 0.88rem;
-    line-height: 1.6;
-    color: var(--text-main);
-}
-
-.work-block {
-    margin-top: 32px;
-    padding: 24px;
-    background: #fdfdfd;
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius-md);
-    transition: background-color 0.8s ease, border-color 0.8s ease;
-}
-
-.work-block.highlight {
-    background-color: #f0fdf4;
-    border-color: #22c55e;
-}
-
-.work-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.work-meta {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 12px 0;
-}
-
-.tag-badge {
-    font-size: 0.7rem;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: var(--text-muted);
 }
