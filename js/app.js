@@ -285,7 +285,7 @@ function openAuthorModal(targetWork) {
     `).join('');
 
     const literaryWorkHTML = author.literaryWork ? `
-        <div class="modal-section-title" style="margin-top: 30px;">Leben und Wirken: Literarisches Werk</div>
+        <div class="modal-section-title" style="margin-top: 30px;">Literarisches Werk</div>
         <p class="modal-text">${escapeHTML(author.literaryWork)}</p>
     ` : '';
 
