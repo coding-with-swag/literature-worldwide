@@ -19,7 +19,7 @@
         "description": "Das Werk spielt in einer dystopischen Naherzukunft: Die sogenannte 'METHODE' stellt die Gesundheit der Bevölkerung über alles. Krankheiten gelten als Verbrechen, Selbstoptimierung ist Pflicht. Als Mia Holls Bruder fälschlicherweise verurteilt wird und sich das Leben nimmt, beginnt sie das lückenlose Kontrollsystem infrage zu stellen. Es entwickelt sich ein rhetorischer Schlagabtausch zwischen ihr und dem Staatsideologen Heinrich Kramer über die Grenzen staatlicher Fürsorge und das Recht auf freie Selbstbestimmung.",
         "tags": {
           "genre": ["Roman"],
-          "epoch": ["Gegenwart"],
+          "epoch": ["Gegenwartsliteratur"],
           "style": ["Dystopisch", "Psychologisch"],
           "themes": ["Freiheit", "Politik", "Macht"]
         }
@@ -35,7 +35,7 @@
         "description": "Der Gesellschaftsroman untersucht das Gefüge eines fiktiven Dorfes in Brandenburg. Als ein Investor Windräder bauen will, prallen Alteingesessene (mit DDR-Vergangenheit) und zugezogene Städter aufeinander. Zeh bedient keine einfachen Gut-Böse-Muster, sondern beleuchtet das Geschehen aus wechselnden Perspektiven – jede Figur handelt aus ihren eigenen Verletzungen und logischen Überzeugungen heraus. Ein vielschichtiges Porträt moderner Gemeinschaft und Polarisierung.",
         "tags": {
           "genre": ["Roman"],
-          "epoch": ["Gegenwart"],
+          "epoch": ["Gegenwartsliteratur"],
           "style": ["Psychologisch"],
           "themes": ["Politik", "Macht", "Natur", "Einsamkeit"]
         }
@@ -51,122 +51,119 @@
         "description": "Dora zieht während der Corona-Pandemie aus Berlin in ein kleines brandenburgisches Dorf. Dort stößt sie auf ihren Nachbarn Gote, der sich rasch als rechter 'Dorf-Scharfmacher' entpuppt. Der Roman stellt die unbequeme Frage, wie menschliche Begegnung möglich ist, wenn politische Abgründe dazwischenliegen. Ohne Radikalismus zu verharmlosen, seziert Zeh die Mechaniken gesellschaftlicher Entfremdung und die Suche nach Versöhnung im Alltäglichen.",
         "tags": {
           "genre": ["Roman"],
-          "epoch": ["Gegenwart"],
+          "epoch": ["Gegenwartsliteratur"],
           "style": ["Psychologisch"],
           "themes": ["Identität", "Politik", "Einsamkeit", "Freiheit"]
         }
       }
     ]
+  },
+  {
+    "name": "Daniel Kehlmann",
+    "birth": 1975,
+    "birthplace": "München",
+    "image": "images/daniel_kehlmann.jpg",
+    "intro": "Daniel Kehlmann ist ein deutsch-österreichischer Schriftsteller, der für seine virtuosen, zwischen historischem Bewusstsein und postmoderner Erzählspielerei changierenden Romane weltbekannt ist.",
+    "life": "Daniel Kehlmann wurde am 13. Januar 1975 in München als Sohn der Schauspielerin Dagmar Mettler und des Regisseurs Michael Kehlmann geboren. Nach dem Umzug der Familie nach Wien im Jahr 1981 wuchs er dort auf, besuchte das Kollegium Kalksburg und studierte im Anschluss Philosophie und Germanistik. Mit einer Diplomarbeit über Friedrich Schillers Theorie der Entfremdung schloss er sein Studium ab; eine geplante Dissertation über Immanuel Kant brach er nach ersten schriftstellerischen Erfolgen ab. Der internationale Durchbruch gelang ihm 2003 mit dem Roman 'Ich und Kaminski', gefolgt von dem Welterfolg 'Die Vermessung der Welt' (2005), der zu den größten Erfolgen der deutschen Nachkriegsliteratur zählt. Kehlmann war Gastdozent und Professor an renommierten Universitäten wie Mainz, Göttingen, Tübingen und der New York University sowie Inhaber der Frankfurter Poetik-Vorlesungen ('Kommt, Geister'). Er ist Mitglied mehrerer Akademien und gehört zu den Mitgründern des PEN Berlin. Kehlmann lebt und arbeitet in Berlin.",
+    "literaryWork": "Stil & Sprache: Kehlmanns Stil zeichnet sich durch lakonische Kürze, ironische Distanz und formale Brillanz aus. Er verbindet Elemente des magischen Realismus mit einer präzisen, oft in indirekter Rede geführten Erzählweise, die historische Stoffe spielerisch bricht und ins Moderne wendet.\n\nPhilosophie: Im Zentrum seines Schaffens stehen Fragen nach Identität, Künstlichkeit, den Grenzen der Realität und der menschlichen Wahrnehmung. Seine Protagonisten sind häufig extreme Figuren, die an den Randbedingungen ihrer Existenz oder an der Wucht historischer und technologischer Umbrüche scheitern.\n\nGenre: Sein Werk umfasst Romane, Novellen, Erzählungen, Essays und Dramen, wobei der historische Roman und der postmodern reflektierte Erzähltext eine herausgehobene Stellung einnehmen.",
+    "works": [
+      {
+        "id": "die-vermessung-der-welt",
+        "title": "Die Vermessung der Welt",
+        "year": 2005,
+        "location": "Berlin / Göttingen",
+        "lat": 52.5200,
+        "lng": 13.4050,
+        "intro": "Eine ironische Doppelbiographie über Alexander von Humboldt und Carl Friedrich Gauß, die als intellektuelles Vexierbild die Entstehung der modernen Wissenschaft vermisst.",
+        "description": "Der Roman erzählt in kunstvoll verschränkten Kapiteln die teils historischen, teils fiktionalisierten Lebenswege des Mathematikers Carl Friedrich Gauß und des Naturforschers Alexander von Humboldt. Während Humboldt als weltreisender Empiriker die physische Natur zu erfassen sucht, verankert Gauß seine Erkundungen in der kompromisslosen theoretischen Abstraktion des Denkens. Kehlmann entwirft ein satirisch geschärftes Panorama der deutschen Geistesgeschichte, das wissenschaftlichen Ehrgeiz mit menschlicher Schrulligkeit kontrastiert und fundamentale Fragen nach dem Erkenntnisvermögen, dem Altern und der Vermessbarkeit der Welt aufwirft.",
+        "tags": {
+          "genre": [
+            "Roman",
+            "Historischer Roman"
+          ],
+          "epoch": [
+            "Gegenwartsliteratur"
+          ],
+          "style": [
+            "Magischer Realismus",
+            "Ironisch",
+            "Psychologisch"
+          ],
+          "themes": [
+            "Wissenschaft",
+            "Identität",
+            "Vergänglichkeit",
+            "Tod",
+            "Alter",
+            "Gesellschaftskritik"
+          ]
+        }
+      },
+      {
+        "id": "ruhm-ein-roman-in-neun-geschichten",
+        "title": "Ruhm – Ein Roman in neun Geschichten",
+        "year": 2009,
+        "location": "Berlin",
+        "lat": 52.5200,
+        "lng": 13.4050,
+        "intro": "Ein virtuoser Episodenroman über die vernetzte Moderne, in dem digitale Kommunikation und Mobiltelefonie Identitäten auflösen und Fiktion und Realität verschwimmen.",
+        "description": "In neun lose miteinander verknüpften Episoden untersucht Kehlmann die Interferenzen von moderner Technologie, digitaler Erreichbarkeit und menschlicher Entfremdung. Figuren tauchen auf, wechseln ihre Rollen oder verlieren sich in virtuellen Parallelwelten, während das Leitmotiv des Ruhms als trügerische Fassade entlarvt wird. Durch geschickte Metalepsen und metafiktionale Kunstgriffe führt der Roman vor, wie fragil das moderne Selbstverständnis in einer Welt der permanenten Kommunikation und des Verschwindens geworden ist.",
+        "tags": {
+          "genre": [
+            "Roman",
+            "Erzählung"
+          ],
+          "epoch": [
+            "Gegenwartsliteratur"
+          ],
+          "style": [
+            "Ironisch",
+            "Fragmentarisch",
+            "Absurd"
+          ],
+          "themes": [
+            "Identität",
+            "Technik",
+            "Einsamkeit",
+            "Entfremdung",
+            "Vergänglichkeit",
+            "Gesellschaftskritik"
+          ]
+        }
+      },
+      {
+        "id": "tyll",
+        "title": "Tyll",
+        "year": 2017,
+        "location": "Prag",
+        "lat": 50.0755,
+        "lng": 14.4378,
+        "intro": "Eine kühne Neufassung des Narrenmythos vor dem verheerenden Panorama des Dreißigjährigen Krieges.",
+        "description": "Kehlmann verlegt die traditionsreiche Figur des Till Eulenspiegel in das historische Trauma des Dreißigjährigen Krieges. Tyll zieht als provokanter Gaukler und Seiltänzer durch eine von Gewalt, Seuchen und politischem Machtwahn zerrissene Welt. Der nicht-linear erzählte Roman verwebt historische Gestalten wie den Winterkönig Friedrich V. oder den Gelehrten Athanasius Kircher mit der fiktiven Existenz des fahrenden Narren. Im Zentrum steht dabei der Preis der Freiheit: die radikale Überlebenskunst und Unabhängigkeit inmitten historischer Katastrophen.",
+        "tags": {
+          "genre": [
+            "Roman",
+            "Historischer Roman"
+          ],
+          "epoch": [
+            "Gegenwartsliteratur"
+          ],
+          "style": [
+            "Magischer Realismus",
+            "Ironisch",
+            "Poetisch"
+          ],
+          "themes": [
+            "Krieg",
+            "Gewalt",
+            "Freiheit",
+            "Unterdrückung",
+            "Mythologie",
+            "Vergänglichkeit",
+            "Tod"
+          ]
+        }
+      }
+    ]
   }
-  ]
-
-[
-{
-  "name": "Daniel Kehlmann",
-  "birth": 1975,
-  "birthplace": "München",
-  "image": "images/daniel_kehlmann.jpg",
-  "intro": "Daniel Kehlmann ist ein deutsch-österreichischer Schriftsteller, der für seine virtuosen, zwischen historischem Bewusstsein und postmoderner Erzählspielerei changierenden Romane weltbekannt ist.",
-  "life": "Daniel Kehlmann wurde am 13. Januar 1975 in München als Sohn der Schauspielerin Dagmar Mettler und des Regisseurs Michael Kehlmann geboren. Nach dem Umzug der Familie nach Wien im Jahr 1981 wuchs er dort auf, besuchte das Kollegium Kalksburg und studierte im Anschluss Philosophie und Germanistik. Mit einer Diplomarbeit über Friedrich Schillers Theorie der Entfremdung schloss er sein Studium ab; eine geplante Dissertation über Immanuel Kant brach er nach ersten schriftstellerischen Erfolgen ab. Der internationale Durchbruch gelang ihm 2003 mit dem Roman 'Ich und Kaminski', gefolgt von dem Welterfolg 'Die Vermessung der Welt' (2005), der zu den größten Erfolgen der deutschen Nachkriegsliteratur zählt. Kehlmann war Gastdozent und Professor an renommierten Universitäten wie Mainz, Göttingen, Tübingen und der New York University sowie Inhaber der Frankfurter Poetik-Vorlesungen ('Kommt, Geister'). Er ist Mitglied mehrerer Akademien und gehört zu den Mitgründern des PEN Berlin. Kehlmann lebt und arbeitet in Berlin.",
-  "literaryWork": "Stil & Sprache: Kehlmanns Stil zeichnet sich durch lakonische Kürze, ironische Distanz und formale Brillanz aus. Er verbindet Elemente des magischen Realismus mit einer präzisen, oft in indirekter Rede geführten Erzählweise, die historische Stoffe spielerisch bricht und ins Moderne wendet.\n\nPhilosophie: Im Zentrum seines Schaffens stehen Fragen nach Identität, Künstlichkeit, den Grenzen der Realität und der menschlichen Wahrnehmung. Seine Protagonisten sind häufig extreme Figuren, die an den Randbedingungen ihrer Existenz oder an der Wucht historischer und technologischer Umbrüche scheitern.\n\nGenre: Sein Werk umfasst Romane, Novellen, Erzählungen, Essays und Dramen, wobei der historische Roman und der postmodern reflektierte Erzähltext eine herausgehobene Stellung einnehmen.",
-  "works": [
-    {
-      "id": "die-vermessung-der-welt",
-      "title": "Die Vermessung der Welt",
-      "year": 2005,
-      "location": "Berlin / Göttingen",
-      "lat": 52.5200,
-      "lng": 13.4050,
-      "intro": "Eine ironische Doppelbiographie über Alexander von Humboldt und Carl Friedrich Gauß, die als intellektuelles Vexierbild die Entstehung der modernen Wissenschaft vermisst.",
-      "description": "Der Roman erzählt in kunstvoll verschränkten Kapiteln die teils historischen, teils fiktionalisierten Lebenswege des Mathematikers Carl Friedrich Gauß und des Naturforschers Alexander von Humboldt. Während Humboldt als weltreisender Empiriker die physische Natur zu erfassen sucht, verankert Gauß seine Erkundungen in der kompromisslosen theoretischen Abstraktion des Denkens. Kehlmann entwirft ein satirisch geschärftes Panorama der deutschen Geistesgeschichte, das wissenschaftlichen Ehrgeiz mit menschlicher Schrulligkeit kontrastiert und fundamentale Fragen nach dem Erkenntnisvermögen, dem Altern und der Vermessbarkeit der Welt aufwirft.",
-      "tags": {
-        "genre": [
-          "Roman",
-          "Historischer Roman"
-        ],
-        "epoch": [
-          "Gegenwartsliteratur"
-        ],
-        "style": [
-          "Magischer Realismus",
-          "Ironisch",
-          "Psychologisch"
-        ],
-        "themes": [
-          "Wissenschaft",
-          "Identität",
-          "Vergänglichkeit",
-          "Tod",
-          "Alter",
-          "Gesellschaftskritik"
-        ]
-      }
-    },
-    {
-      "id": "ruhm-ein-roman-in-neun-geschichten",
-      "title": "Ruhm – Ein Roman in neun Geschichten",
-      "year": 2009,
-      "location": "Berlin",
-      "lat": 52.5200,
-      "lng": 13.4050,
-      "intro": "Ein virtuoser Episodenroman über die vernetzte Moderne, in dem digitale Kommunikation und Mobiltelefonie Identitäten auflösen und Fiktion und Realität verschwimmen.",
-      "description": "In neun lose miteinander verknüpften Episoden untersucht Kehlmann die Interferenzen von moderner Technologie, digitaler Erreichbarkeit und menschlicher Entfremdung. Figuren tauchen auf, wechseln ihre Rollen oder verlieren sich in virtuellen Parallelwelten, während das Leitmotiv des Ruhms als trügerische Fassade entlarvt wird. Durch geschickte Metalepsen und metafiktionale Kunstgriffe führt the Roman vor, wie fragil das moderne Selbstverständnis in einer Welt der permanenten Kommunikation und des Verschwindens geworden ist.",
-      "tags": {
-        "genre": [
-          "Roman",
-          "Erzählung"
-        ],
-        "epoch": [
-          "Gegenwartsliteratur"
-        ],
-        "style": [
-          "Ironisch",
-          "Fragmentarisch",
-          "Absurd"
-        ],
-        "themes": [
-          "Identität",
-          "Technik",
-          "Einsamkeit",
-          "Entfremdung",
-          "Vergänglichkeit",
-          "Gesellschaftskritik"
-        ]
-      }
-    },
-    {
-      "id": "tyll",
-      "title": "Tyll",
-      "year": 2017,
-      "location": "Prag",
-      "lat": 50.0755,
-      "lng": 14.4378,
-      "intro": "Eine kühne Neufassung des Narrenmythos vor dem verheerenden Panorama des Dreißigjährigen Krieges.",
-      "description": "Kehlmann verlegt die traditionsreiche Figur des Till Eulenspiegel in das historische Trauma des Dreißigjährigen Krieges. Tyll zieht als provokanter Gaukler und Seiltänzer durch eine von Gewalt, Seuchen und politischem Machtwahn zerrissene Welt. Der nicht-linear erzählte Roman verwebt historische Gestalten wie den Winterkönig Friedrich V. oder den Gelehrten Athanasius Kircher mit der fiktiven Existenz des fahrenden Narren. Im Zentrum steht dabei der Preis der Freiheit: die radikale Überlebenskunst und Unabhängigkeit inmitten historischer Katastrophen.",
-      "tags": {
-        "genre": [
-          "Roman",
-          "Historischer Roman"
-        ],
-        "epoch": [
-          "Gegenwartsliteratur"
-        ],
-        "style": [
-          "Magischer Realismus",
-          "Ironisch",
-          "Poetisch"
-        ],
-        "themes": [
-          "Krieg",
-          "Gewalt",
-          "Freiheit",
-          "Unterdrückung",
-          "Mythologie",
-          "Vergänglichkeit",
-          "Tod"
-        ]
-      }
-    }
-  ]
-} 
 ]
