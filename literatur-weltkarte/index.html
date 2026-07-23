@@ -1,76 +1,95 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archiv der Weltliteratur | 1500 – 2026</title>
+    
+    <!-- Google Fonts: Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- noUiSlider (Timeline Slider) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/globe.gl"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="de"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Archiv der Weltliteratur&lt;/title&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Fonts --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- noUiSlider (Timeline) CSS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="css/styles.css"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Libraries --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/globe.gl"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Globus Container --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="globe-container"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- UI Overlay --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="ui-layer top-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats"&gt;Sichtbare Werke: &lt;span id="visible-count"&gt;0&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="search-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="search-input" placeholder="Autor, Titel, Tags..."&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="filter-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn-filter" id="btn-genre"&gt;Genre&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn-filter" id="btn-epoch"&gt;Epoche&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn-filter" id="btn-style"&gt;Stil&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn-filter" id="btn-themes"&gt;Themen&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Dropdowns werden per JS generiert --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Timeline --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="ui-layer bottom-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="timeline-slider"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-labels"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span id="year-start"&gt;1500&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span id="year-end"&gt;2026&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Autoren/Werke Modal (Standardmäßig unsichtbar) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="modal-overlay" class="hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="close-modal"&gt;✕&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="modal-content"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Custom Scripts --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module" src="js/app.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <!-- 3D Globus Hintergrund -->
+    <div id="globe-container"></div>
+
+    <!-- UI Overlay Navigation Top -->
+    <header class="ui-layer top-bar">
+        <div class="top-left-group">
+            <div class="stats-badge">
+                <span class="pulse-dot"></span>
+                <span id="visible-count">0</span> Werke
+            </div>
+            <button id="btn-random" class="btn-secondary" title="Zufallswerk entdecken">
+                ✦ Entdecken
+            </button>
+        </div>
+        
+        <!-- Suchleiste Oben Mittig -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Suche: Autor, Titel, Tags..." autocomplete="off">
+        </div>
+        
+        <!-- Filterleiste Oben Rechts -->
+        <nav class="filter-container">
+            <div class="filter-dropdown-wrapper" data-category="genre">
+                <button class="btn-filter" id="btn-genre">Genre ▾</button>
+                <div class="dropdown-menu" id="dropdown-genre"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="epoch">
+                <button class="btn-filter" id="btn-epoch">Epoche ▾</button>
+                <div class="dropdown-menu" id="dropdown-epoch"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="style">
+                <button class="btn-filter" id="btn-style">Stil ▾</button>
+                <div class="dropdown-menu" id="dropdown-style"></div>
+            </div>
+            
+            <div class="filter-dropdown-wrapper" data-category="themes">
+                <button class="btn-filter" id="btn-themes">Themen ▾</button>
+                <div class="dropdown-menu" id="dropdown-themes"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Timeline Navigation Bottom -->
+    <footer class="ui-layer bottom-bar">
+        <div class="timeline-card">
+            <div class="timeline-header">
+                <span class="timeline-title">ZEITRAUM</span>
+                <div class="timeline-years">
+                    <span id="year-start">1500</span> – <span id="year-end">2026</span>
+                </div>
+            </div>
+            <div id="timeline-slider"></div>
+        </div>
+    </footer>
+
+    <!-- Autoren & Werke Zentrales Modal Popup -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button id="close-modal" class="close-btn" aria-label="Schließen">✕</button>
+            <div id="modal-content">
+                <!-- Wird dynamisch per JS gefüllt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hauptskript -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
