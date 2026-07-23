@@ -77,6 +77,7 @@ function initGlobe() {
         .htmlElementsData([])
         .htmlElement(d => createPinElement(d));
 
+    // Wasser (Globuskugel) blau färben
     const globeMaterial = activeGlobe.globeMaterial();
     globeMaterial.color.set('#b6d0e2');
 
@@ -102,17 +103,14 @@ function initGlobe() {
     });
 }
 
-// Erstellt HTML-Pins 
+// Erstellt HTML-Pins (Festsitzender Wrapper)
 function createPinElement(work) {
-    // Der unsichtbare Wrapper, der von globe.gl positioniert wird
     const wrapper = document.createElement('div');
     wrapper.className = 'pin-wrapper';
 
-    // Der eigentliche Pin
     const el = document.createElement('div');
     el.className = 'pin-marker';
 
-    // Das Hover-Vorschaufenster
     const preview = document.createElement('div');
     preview.className = 'hover-preview';
     preview.innerHTML = `
@@ -125,7 +123,7 @@ function createPinElement(work) {
     wrapper.appendChild(el);
     wrapper.appendChild(preview);
 
-    // Hover auf 1000 ms (1 Sekunde) reduziert
+    // Hover auf 1000 ms (1 Sekunde)
     let hoverTimer;
     el.addEventListener('mouseenter', () => {
         hoverTimer = setTimeout(() => {
@@ -155,10 +153,8 @@ function updateView() {
     const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
 
     const filteredWorks = allWorks.filter(work => {
-        // 1. Timeline
         if (work.year < activeTimeRange[0] || work.year > activeTimeRange[1]) return false;
 
-        // 2. Suche
         if (searchTerm) {
             const authorMatch = work.authorName.toLowerCase().includes(searchTerm);
             const titleMatch = work.title.toLowerCase().includes(searchTerm);
@@ -175,7 +171,6 @@ function updateView() {
             if (!authorMatch && !titleMatch && !tagMatch) return false;
         }
 
-        // 3. Dropdown-Kategorien
         for (const [category, selectedValues] of Object.entries(activeFilters)) {
             if (selectedValues.length > 0) {
                 const workTagsInCat = work.tags?.[category] || [];
@@ -289,7 +284,6 @@ function openAuthorModal(targetWork) {
         </div>
     `).join('');
 
-
     const literaryWorkHTML = author.literaryWork ? `
         <div class="modal-section-title" style="margin-top: 30px;">Leben und Wirken: Literarisches Werk</div>
         <p class="modal-text">${escapeHTML(author.literaryWork)}</p>
@@ -305,20 +299,6 @@ function openAuthorModal(targetWork) {
             <p class="modal-text">${escapeHTML(author.life || 'Keine Biografie vorhanden.')}</p>
             
             ${literaryWorkHTML}
-        </div>
-
-        <div class="modal-section-title" style="margin-top: 40px;">Wichtigste Werke</div>
-        ${worksHTML}
-    `;
-
-    modalContent.innerHTML = `
-        <div class="modal-author-header">
-            <h1 class="modal-author-name">${escapeHTML(author.name)}</h1>
-            <div class="modal-author-meta">* ${author.birth || 'Unbekannt'} ${author.birthplace ? 'in ' + escapeHTML(author.birthplace) : ''}</div>
-            ${author.intro ? `<p class="modal-text" style="font-weight: bold; margin-bottom: 16px;">${escapeHTML(author.intro)}</p>` : ''}
-            
-            <div class="modal-section-title">Leben und Wirken</div>
-            <p class="modal-text">${escapeHTML(author.life || 'Keine Biografie vorhanden.')}</p>
         </div>
 
         <div class="modal-section-title" style="margin-top: 40px;">Wichtigste Werke</div>
