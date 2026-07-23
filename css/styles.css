@@ -1,20 +1,20 @@
 /* ==========================================================================
-   MUSEUMS-ÄSTHETIK & TYPOGRAFIE
+   HELLES MUSEUMS-DESIGN & MONOSPACE-TYPOGRAFIE
    ========================================================================== */
 
 :root {
-    --bg-dark: #08080a;
-    --card-bg: rgba(18, 18, 22, 0.85);
-    --card-border: rgba(255, 255, 255, 0.12);
-    --text-main: #f0f0f2;
-    --text-muted: #a0a0ab;
-    --accent-glow: rgba(255, 255, 255, 0.9);
-    --accent-highlight: rgba(255, 255, 255, 0.08);
+    --bg-light: #f4f4f7;
+    --card-bg: rgba(255, 255, 255, 0.92);
+    --card-border: rgba(0, 0, 0, 0.1);
+    --text-main: #18181b;
+    --text-muted: #71717a;
+    --accent-dark: #09090b;
+    --accent-highlight: rgba(0, 0, 0, 0.05);
     --font-mono: 'Space Mono', monospace;
     --radius-lg: 20px;
     --radius-md: 12px;
     --radius-sm: 8px;
-    --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -25,7 +25,7 @@
 
 body {
     font-family: var(--font-mono);
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
     color: var(--text-main);
     overflow: hidden;
     width: 100vw;
@@ -44,6 +44,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 0;
+    background-color: var(--bg-light);
 }
 
 .ui-layer {
@@ -84,18 +85,19 @@ body {
     align-items: center;
     gap: 8px;
     color: var(--text-main);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .pulse-dot {
     width: 8px;
     height: 8px;
-    background-color: #34d399;
+    background-color: #10b981;
     border-radius: 50%;
-    box-shadow: 0 0 8px #34d399;
+    box-shadow: 0 0 6px #10b981;
 }
 
 /* ==========================================================================
-   BUTTONS & FORMULARE
+   BUTTONS & FORMULARE (HELL)
    ========================================================================== */
 
 .btn-secondary, .btn-filter {
@@ -109,11 +111,12 @@ body {
     backdrop-filter: blur(16px);
     cursor: pointer;
     transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .btn-secondary:hover, .btn-filter:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(30, 30, 38, 0.95);
+    border-color: var(--accent-dark);
+    background: #ffffff;
     transform: translateY(-1px);
 }
 
@@ -133,11 +136,12 @@ body {
     backdrop-filter: blur(16px);
     outline: none;
     transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 #search-input:focus {
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
 }
 
 /* ==========================================================================
@@ -160,7 +164,7 @@ body {
     width: 220px;
     max-height: 280px;
     overflow-y: auto;
-    background: rgba(15, 15, 18, 0.95);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     padding: 12px;
@@ -168,7 +172,7 @@ body {
     display: none;
     flex-direction: column;
     gap: 8px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     z-index: 100;
 }
 
@@ -177,8 +181,9 @@ body {
 }
 
 .filter-dropdown-wrapper.has-active .btn-filter {
-    border-color: #ffffff;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-dark);
+    background: var(--accent-dark);
+    color: #ffffff;
 }
 
 .dropdown-item {
@@ -197,12 +202,12 @@ body {
 }
 
 .dropdown-item input[type="checkbox"] {
-    accent-color: #ffffff;
+    accent-color: var(--accent-dark);
     cursor: pointer;
 }
 
 /* ==========================================================================
-   TIMELINE (UNTEN MITTIG)
+   TIMELINE (HELL)
    ========================================================================== */
 
 .bottom-bar {
@@ -222,6 +227,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .timeline-header {
@@ -240,27 +246,27 @@ body {
     font-weight: bold;
 }
 
-/* noUiSlider Custom Styling */
+/* noUiSlider Custom Light Styling */
 .noUi-target {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.08);
     border: none;
     box-shadow: none;
     height: 4px;
 }
 
 .noUi-connect {
-    background: #ffffff;
+    background: var(--accent-dark);
 }
 
 .noUi-handle {
-    border: 2px solid #ffffff;
-    background: #08080a;
+    border: 2px solid var(--accent-dark);
+    background: #ffffff;
     border-radius: 50%;
     width: 18px !important;
     height: 18px !important;
     right: -9px !important;
     top: -7px !important;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
 
@@ -269,22 +275,27 @@ body {
 }
 
 /* ==========================================================================
-   GLOBE PINS & HOVER PREVIEW
+   GLOBE PINS (VERANKERT & FASTSITZEND)
    ========================================================================== */
 
 .pin-marker {
-    position: relative;
+    position: absolute;
     width: 12px;
     height: 12px;
-    background: #ffffff;
+    background: var(--accent-dark);
+    border: 2px solid #ffffff;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
-    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    /* WICHTIG: Zentriert den Pin exakt über den Koordinaten */
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    pointer-events: auto !important;
 }
 
 .pin-marker:hover {
-    transform: scale(1.6);
+    transform: translate(-50%, -50%) scale(1.5);
+    background: #2563eb; /* Sanftes Blau beim Hover */
 }
 
 .hover-preview {
@@ -292,7 +303,7 @@ body {
     bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--card-bg);
+    background: rgba(255, 255, 255, 0.98);
     border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     padding: 14px;
@@ -302,7 +313,7 @@ body {
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     z-index: 50;
 }
 
@@ -339,7 +350,7 @@ body {
 }
 
 /* ==========================================================================
-   AUTOREN / WERKE POPUP MODAL
+   MODAL POPUP (HELL)
    ========================================================================== */
 
 .modal-overlay {
@@ -348,14 +359,14 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(4, 4, 6, 0.75);
-    backdrop-filter: blur(12px);
+    background: rgba(244, 244, 247, 0.75);
+    backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
 }
 
 .modal-overlay.hidden {
@@ -364,7 +375,7 @@ body {
 }
 
 .modal-card {
-    background: rgba(14, 14, 18, 0.95);
+    background: #ffffff;
     border: 1px solid var(--card-border);
     width: 90%;
     max-width: 760px;
@@ -373,7 +384,7 @@ body {
     padding: 44px;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
 }
 
 .close-btn {
@@ -393,14 +404,10 @@ body {
     color: var(--text-main);
 }
 
-/* Modal Content Styling */
-.modal-author-header {
-    margin-bottom: 30px;
-}
-
 .modal-author-name {
     font-size: 1.8rem;
     margin-bottom: 6px;
+    color: var(--text-main);
 }
 
 .modal-author-meta {
@@ -426,15 +433,15 @@ body {
 .work-block {
     margin-top: 32px;
     padding: 24px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #fdfdfd;
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     transition: background-color 0.8s ease, border-color 0.8s ease;
 }
 
 .work-block.highlight {
-    background-color: var(--accent-highlight);
-    border-color: rgba(255, 255, 255, 0.4);
+    background-color: #f0fdf4;
+    border-color: #22c55e;
 }
 
 .work-title {
@@ -458,36 +465,9 @@ body {
 
 .tag-badge {
     font-size: 0.7rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
     padding: 3px 8px;
     border-radius: 4px;
     color: var(--text-muted);
-}
-
-/* Custom Scrollbar für Modal */
-.modal-card::-webkit-scrollbar, .dropdown-menu::-webkit-scrollbar {
-    width: 6px;
-}
-.modal-card::-webkit-scrollbar-thumb, .dropdown-menu::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
-
-/* Responsive Optimierung */
-@media (max-width: 768px) {
-    .top-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .filter-container {
-        overflow-x: auto;
-        padding-bottom: 8px;
-    }
-    .bottom-bar {
-        width: 95%;
-    }
-    .modal-card {
-        padding: 24px;
-    }
 }
