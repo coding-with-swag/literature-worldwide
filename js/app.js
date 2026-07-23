@@ -70,9 +70,9 @@ function initGlobe() {
     
     activeGlobe = Globe()
         (container)
-        .backgroundColor('#f4f4f7') // Heller Hintergrund
+        .backgroundColor('#b6d0e2') /* Schönes, klares Ozean-Blau */
         .showAtmosphere(true)
-        .atmosphereColor('#cbd5e1')
+        .atmosphereColor('#ffffff')
         .atmosphereAltitude(0.1)
         .htmlElementsData([])
         .htmlElement(d => createPinElement(d));
